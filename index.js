@@ -10,13 +10,15 @@ const db = mySQL.createConnection({
     database: 'employee_tracker_db'
 });
 
+// Check connection and throw error if connection is incomplete
+// Call function to start up inquirer
 db.connect((err) => {
     if (err) throw (err);
     console.log(`Connected to the employee_tracker_db database.`);
     employee_tracker();
-}
-)
+});
 
+// Created function to call on to execute toggle
 let employee_tracker = function () {
     inquirer.prompt({
         type: 'list',
@@ -65,7 +67,8 @@ let employee_tracker = function () {
                     }
                 })
                 .then((answer) =>{
-                    db.query(`INSERT INTO department (name) VALUES ${answer}`), [answer.dept], (err) => {
+                    // How to grab values without an error throwing '(?)' '${answer.dept}'
+                    db.query(`INSERT INTO department (name) SET (?)`), [answer.dept], (err) => {
                         if (err) throw (err);
                         console.log(`Inserted ${answer.dept} to the database`)
                         employee_tracker();
