@@ -18,12 +18,12 @@ db.connect((err) => {
 )
 
 let employee_tracker = function () {
-    inquirer.prompt([{
+    inquirer.prompt({
         type: 'list',
         name: 'toggle',
         message: 'Please select an action:',
         choices: ['View Departments', 'View Roles', 'View Employees', 'Add a department', 'Add a role', 'Add an employee', 'Update employees role', 'LOG OUT']
-    }])
+    })
         .then((answer) => {
             if (answer.toggle === 'View Departments') {
                 db.query('SELECT * FROM department', (err, res) => {
@@ -50,8 +50,27 @@ let employee_tracker = function () {
                 })
             }
             else if (answer.toggle === 'Add a department') {
-
-                employee_tracker();
+                inquirer.prompt({
+                    type: 'input',
+                    name: 'dept',
+                    message: 'What is the department you would like to add?',
+                    validate: deptInput => {
+                        if(deptInput){
+                            return true
+                        }
+                        else{
+                            console.log('Please input a department.')
+                            return false
+                        }
+                    }
+                })
+                .then((answer) =>{
+                    db.query(`INSERT INTO department (name) VALUES ${answer}`), [answer.dept], (err) => {
+                        if (err) throw (err);
+                        console.log(`Inserted ${answer.dept} to the database`)
+                        employee_tracker();
+                    }
+                })
             }
             else if (answer.toggle === 'Add a role') {
 
