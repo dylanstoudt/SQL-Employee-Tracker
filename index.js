@@ -75,6 +75,7 @@ let employee_tracker = function () {
                         }
                     })
             }
+            //THIS CODE IS CLOSE BUT BROKEN, JUST MUST BE REPLICATED BELOW
             else if (answer.toggle === 'Add a role') {
 
                 employee_tracker();
