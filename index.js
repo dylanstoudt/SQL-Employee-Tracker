@@ -24,7 +24,7 @@ let employee_tracker = function () {
         type: 'list',
         name: 'toggle',
         message: 'Please select an action:',
-        choices: ['View Departments', 'View Roles', 'View Employees', 'Add a department', 'Add a role', 'Add an employee', 'Update employees role', 'LOG OUT']
+        choices: ['View Departments', 'View Roles', 'View Employees','LOG OUT'] //'Add a department', 'Add a role', 'Add an employee', 'Update employees role']
     })
         .then((answer) => {
             if (answer.toggle === 'View Departments') {
@@ -57,23 +57,23 @@ let employee_tracker = function () {
                     name: 'dept',
                     message: 'What is the department you would like to add?',
                     validate: deptInput => {
-                        if(deptInput){
+                        if (deptInput) {
                             return true
                         }
-                        else{
+                        else {
                             console.log('Please input a department.')
                             return false
                         }
                     }
                 })
-                .then((answer) =>{
-                    // How to grab values without an error throwing '(?)' '${answer.dept}'
-                    db.query(`INSERT INTO department (name) SET (?)`), [answer.dept], (err) => {
-                        if (err) throw (err);
-                        console.log(`Inserted ${answer.dept} to the database`)
-                        employee_tracker();
-                    }
-                })
+                    .then((answer) => {
+                        // How to grab values without an error throwing '(?)' '${answer.dept}'
+                        db.query(`INSERT INTO department (name) VALUES ?`), [answer.dept], (err) => {
+                            if (err) throw (err);
+                            console.log(`Inserted ${answer.dept} to the database`);
+                            employee_tracker();
+                        }
+                    })
             }
             else if (answer.toggle === 'Add a role') {
 

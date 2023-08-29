@@ -1,11 +1,11 @@
-DROP DATABASE IF EXISTS employee_tracker_db
-CREATE DATABASE employee_tracker_db
+DROP DATABASE IF EXISTS employee_tracker_db;
+CREATE DATABASE employee_tracker_db;
 
-USE employee_tracker_db
+USE employee_tracker_db;
 
 CREATE TABLE department (
     id INT AUTO_INCREMENT,
-    name VARCHAR(30)
+    name VARCHAR(30),
     PRIMARY KEY(id)
 );
 
